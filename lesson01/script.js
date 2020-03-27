@@ -1,4 +1,4 @@
-var money,
+let money,
     income,
     addExpenses,
     deposit,
