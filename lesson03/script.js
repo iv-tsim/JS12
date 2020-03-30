@@ -32,7 +32,7 @@ console.log("Период равен " + period + " месяцев");
 console.log("Цель заработать " + mission + " рублей/долларов/гривен/юани");
 
 addExpenses = addExpenses.toLowerCase();
-console.log(addExpenses.split(","))
+console.log(addExpenses.split(","));
 
 console.log("Бюджет на месяц: ", budgetMonth);
 
