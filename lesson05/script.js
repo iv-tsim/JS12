@@ -1,45 +1,70 @@
 "use strict"
 
-const   money = +prompt("Ваш месячный доход?", 30000),
-        income = "Листовки",
+const isNumber = function(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+};
+
+const   income = "Листовки",
         addExpenses = prompt("Перечислите возможные расходы за рассчитываемый период через запятую", "a,b,c,d"),
         deposit = confirm("Есть ли у вас депозит в банке?"),
         mission = 200000,
-        period = 6,
-        expenses1 = prompt("Введите обязательную статью расходов", "qwerty"),
-        amount1 = +prompt("Во сколько это обойдется?", 12345),
-        expenses2 = prompt("Введите обязательную статью расходов", "wertewrt"),
-        amount2 = +prompt("Во сколько это обойдется?", 1230);
+        period = 6;
+
+let money = 0,
+    expenses = [];
+
+const start = function() {
+    do {
+        money = prompt("Ваш месячный доход?");
+    } while (!isNumber(money));
+};
+
+start();
 
 const getExpensesMonth = function() {
-    return amount1 + amount2;
-}
+    let sum = 0;
+    for (let i = 0; i < 2; i++) {
+        expenses[i] = prompt("Введите обязательную статью расходов", "qwerty");
+        let expense = +prompt("Во сколько это обойдется?");
+        if (isNumber(expense)) {
+            sum += expense;
+        }
+    }
+    return sum;
+};
+
+const expensesAmount = getExpensesMonth();
 
 const getAccumulatedMonth = function() {
-    return money - getExpensesMonth();
-}
+    return money - expensesAmount;
+};
 
 const accumulatedMonth = getAccumulatedMonth();
 
 const getTargetMonth = function() {
-    return Math.ceil(mission / accumulatedMonth);
-}
+    let period = Math.ceil(mission / accumulatedMonth);
+    if (period < 0) {
+        return ("Цель не будет достигнута");
+    } else {
+        return ("Цель будет достигнута за " + period + " месяцев");
+    }
+};
 
 let budgetDay = Math.floor(accumulatedMonth / 30);
 
 const showTypeOf = function(data) {
     return typeof(data);
-}
+};
 
 console.log(showTypeOf(money));
 console.log(showTypeOf(income));
 console.log(showTypeOf(deposit));
 
-console.log("Расходы за месяц: " + getExpensesMonth());
+console.log("Расходы за месяц: " + expensesAmount);
 
 console.log(addExpenses.toLowerCase().split(","));
 
-console.log("Цель будет достигнута за: " + getTargetMonth() + " месяцев");
+console.log(getTargetMonth());
 console.log("Бюджет на день: ", budgetDay);
 
 const getStatusIncome = function() {
@@ -52,6 +77,6 @@ const getStatusIncome = function() {
     } else {
         return ("Что то пошло не так");
     }
-}
+};
 
 console.log(getStatusIncome());
