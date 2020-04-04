@@ -30,17 +30,14 @@ const appData = {
         const addExpenses = prompt("Перечислите возможные расходы за рассчитываемый период через запятую", "a,b,c,d");
         appData.addExpenses = addExpenses.toLowerCase().split(",");
         appData.deposit = confirm("Есть ли у вас депозит в банке?");
-        let i = 0;
-        do {
+        for (let i = 0; i < 2; i++) {
             let question = prompt("Введите обязательную статью расходов"),
                 answer = prompt("Во сколько это обойдется?");
-            i++;
-            if (isNumber(answer)) {
-                appData.expenses[question] = +answer;
-            } else {
-                i--;
+            while(!isNumber(answer)) {
+                answer = prompt("Во сколько это обойдется?");
             }
-        } while (i < 2);
+            appData.expenses[question] = +answer;
+        }
     },
     getExpensesMonth: function() {
         for (let key in appData.expenses) {
