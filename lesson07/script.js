@@ -114,11 +114,9 @@ console.log("Расходы за месяц: " + appData.expensesMonth);
 console.log(appData.getTargetMonth());
 console.log(appData.getStatusIncome());
 
-let newAddExpenses = [];
-appData.addExpenses.forEach(function(item) {
-    newAddExpenses.push(item[0].toUpperCase() + item.slice(1));
-});
-console.log(newAddExpenses.join(", "));
+console.log(appData.addExpenses.map(function(item) {
+    return item[0].toUpperCase() + item.slice(1);
+}).join(", "));
 
 console.log("Наша программа включает в себя данные:");
 
