@@ -162,34 +162,11 @@ AppData.prototype.getBudget = function() {
 AppData.prototype.getTargetMonth = function() {
     return Math.ceil(targetAmount.value / this.budgetMonth);
 };
-AppData.prototype.getStatusIncome = function() {
-    if(this.budgetDay >= 1200) {
-        return ("У вас высокий уровень дохода");
-    } else if(this.budgetDay >= 600) {
-        return ("У вас средний уровень дохода");
-    } else if(this.budgetDay < 600 && this.budgetDay >= 0 ) {
-        return ("К сожалению у вас уровень дохода ниже среднего");
-    } else {
-        return ("Что то пошло не так");
-    }
-};
-AppData.prototype.getInfoDeposit = function() {
-    if(this.deposit) {
-        this.percentDeposit = prompt("Какой годовой процент?");
-        while(!isNumber(this.percentDeposit)) {
-            this.percentDeposit = prompt("Какой годовой процент?");
-        }
-        this.moneyDeposit = prompt("Какая сумма заложена");
-        while(!isNumber(this.moneyDeposit)) {
-            this.moneyDeposit = prompt("Какая сумма заложена");
-        }
-    }
-};
 AppData.prototype.calcPeriod = function() {
     return this.budgetMonth * periodSelect.value;
 };
 AppData.prototype.eventsListeners = function() {
-    const bindingThis = appData.start.bind(appData);
+    const bindingThis = this.start.bind(this);
     start.addEventListener("click", bindingThis);
     start.disabled = true;
     money.addEventListener("input", function() {
