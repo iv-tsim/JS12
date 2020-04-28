@@ -84,7 +84,6 @@ class AppData {
             if (index > 0) {item.remove();}
         });
         expensesAdd.style.display = "block";
-        this.eventsListeners();
     }
     showResult() {
         budgetMonthValue.value = this.budgetMonth;
