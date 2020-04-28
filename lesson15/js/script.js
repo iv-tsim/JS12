@@ -56,6 +56,7 @@ class AppData {
         this.showResult();
     }
     reset() {
+        console.log(this);
         for (let key in this) {
             this.key = 0;
         }
@@ -161,8 +162,6 @@ class AppData {
         return this.budgetMonth * periodSelect.value;
     }
     eventsListeners() {
-        const bindingThis = this.start.bind(this);
-        start.addEventListener("click", bindingThis);
         start.disabled = true;
         money.addEventListener("input", () => {
             if(money.value.trim() !== "") {
@@ -179,12 +178,12 @@ class AppData {
             start.style.display = "none";
             cancel.style.display = "block";
         });
+        cancel.addEventListener("click", this.reset);
         expensesAdd.addEventListener("click", this.addExpensesBlock);
         incomeAdd.addEventListener("click", this.addIncomeBlock);
         periodSelect.addEventListener("input", () => {
             periodAmount.textContent = periodSelect.value;
         });
-        cancel.addEventListener("click", this.reset);
     }
 }
 
