@@ -1,5 +1,8 @@
 "use strict";
 
+let expensesItems = document.querySelectorAll(".expenses-items"),
+    incomeItems = document.querySelectorAll(".income-items");
+
 const   start = document.getElementById("start"),
         cancel = document.getElementById("cancel"),
         incomeAdd = document.querySelectorAll("button")[0],
@@ -22,8 +25,6 @@ const   start = document.getElementById("start"),
         periodSelect = document.querySelector(".period-select"),
         periodAmount = document.querySelector(".period-amount"),
         additionalExpensesValue = document.querySelector(".additional_expenses-value");
-let expensesItems = document.querySelectorAll(".expenses-items"),
-    incomeItems = document.querySelectorAll(".income-items");
 
 const isNumber = n => {
     return !isNaN(parseFloat(n)) && isFinite(n);
@@ -46,7 +47,6 @@ class AppData {
     }
     start() {
         this.budget = +money.value;
-        this.eventsListeners();
         this.getExpenses();
         this.getIncome();
         this.getExpensesMonth();
@@ -56,9 +56,8 @@ class AppData {
         this.showResult();
     }
     reset() {
-        console.log(this);
         for (let key in this) {
-            this.key = 0;
+            this[key] = 0;
         }
         let inputsLeft = document.querySelectorAll(".data input[type=text]");
         let inputsRight = document.querySelectorAll(".result input");
@@ -83,6 +82,7 @@ class AppData {
             if (index > 0) {item.remove();}
         });
         expensesAdd.style.display = "block";
+        this.eventsListeners();
     }
     showResult() {
         budgetMonthValue.value = this.budgetMonth;
@@ -169,6 +169,7 @@ class AppData {
             }
         });
         start.addEventListener("click", () => {
+            this.start();
             let inputs = document.querySelectorAll(".data input[type=text]");
             inputs.forEach(item => {
                 item.disabled = true;
@@ -178,7 +179,7 @@ class AppData {
             start.style.display = "none";
             cancel.style.display = "block";
         });
-        cancel.addEventListener("click", this.reset);
+        cancel.addEventListener("click", this.reset.bind(this));
         expensesAdd.addEventListener("click", this.addExpensesBlock);
         incomeAdd.addEventListener("click", this.addIncomeBlock);
         periodSelect.addEventListener("input", () => {
@@ -189,4 +190,4 @@ class AppData {
 
 const appData = new AppData();
 
-appData.start();
+appData.eventsListeners();
