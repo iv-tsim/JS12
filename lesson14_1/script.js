@@ -19,7 +19,7 @@ DomElement.prototype.createElement = function() {
     elem.style.cssText = `background: ${this.bg}; font-size: ${this.fontSize}; 
     height: ${this.height}; width: ${this.width};`;
     elem.textContent = "I did it!";
-    document.body.append(elem);
+    document.body.appendChild(elem);
 };
 
 let newObj = new DomElement(".yes", "80px", "200px", "red", "44px");
