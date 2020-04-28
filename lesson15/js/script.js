@@ -16,10 +16,6 @@ const   start = document.getElementById("start"),
         incomePeriodValue = document.querySelector(".income_period-value"),
         targetMonthValue = document.querySelector(".target_month-value"),
         money = document.querySelector(".salary-amount"),
-        incomeTitle = document.querySelector(".income-title"),
-        incomeAmount = document.querySelector(".income-amount"),
-        expensesTitle = document.querySelector(".expenses-title"),
-        expensesAmount = document.querySelector(".expenses-amount"),
         additionalExpensesItem = document.querySelector(".additional_expenses-item"),
         targetAmount = document.querySelector(".target-amount"),
         periodSelect = document.querySelector(".period-select"),
@@ -57,7 +53,13 @@ class AppData {
     }
     reset() {
         for (let key in this) {
-            this[key] = 0;
+            if (Array.isArray(this[key])) {
+                this[key] = [];
+            } else if (typeof this[key] === "object") {
+                this[key] = {};
+            } else {
+                this[key] = 0;
+            }
         }
         let inputsLeft = document.querySelectorAll(".data input[type=text]");
         let inputsRight = document.querySelectorAll(".result input");
@@ -105,9 +107,11 @@ class AppData {
         }
     }
     getExpenses() {
-        expensesItems.forEach(() => {
-            if (expensesTitle.value !== "" && expensesAmount.value !== "") {
-                this.expenses[expensesTitle.value] = expensesAmount.value;
+        expensesItems.forEach((item) => {
+            let itemExpenses = item.querySelector(".expenses-title").value,
+                cashExpenses = item.querySelector(".expenses-amount").value;
+            if (itemExpenses !== "" && cashExpenses !== "") {
+                this.expenses[itemExpenses] = cashExpenses;
             }
         });
     }
@@ -120,9 +124,11 @@ class AppData {
         }
     }
     getIncome() {
-        incomeItems.forEach(() => {
-            if (incomeTitle.value !== "" && incomeAmount.value !== "") {
-                this.income[incomeTitle.value] = incomeAmount.value;
+        incomeItems.forEach((item) => {
+            let itemIncome = item.querySelector(".income-title").value,
+                cashIncome = item.querySelector(".income-amount").value;
+            if (itemIncome !== "" && cashIncome !== "") {
+                this.income[itemIncome] = cashIncome;
             }
         });
         for (let key in this.income) {
