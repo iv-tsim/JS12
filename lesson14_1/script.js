@@ -1,6 +1,6 @@
 "use strict";
 
-function DomElement(selector, height = "300px", width="300px", bg="yellow", fontSize="10px") {
+function DomElement({selector = ".ok", height = "300px", width="300px", bg="yellow", fontSize="10px"}) {
     this.selector = selector;
     this.height = height;
     this.width = width;
@@ -22,6 +22,6 @@ DomElement.prototype.createElement = function() {
     document.body.appendChild(elem);
 };
 
-let newObj = new DomElement(".yes", "80px", "200px", "red", "44px");
+let newObj = new DomElement({selector: ".yes", height: "80px", width: "200px", bg: "red", fontSize: "44px"});
 
 newObj.createElement();
