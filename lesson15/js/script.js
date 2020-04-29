@@ -216,6 +216,7 @@ class AppData {
             inputs.forEach(item => {
                 item.disabled = true;
             });
+            depositBank.disabled = true;
             incomeAdd.disabled = true;
             expensesAdd.disabled = true;
             start.style.display = "none";
