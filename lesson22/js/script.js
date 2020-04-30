@@ -189,9 +189,39 @@ window.addEventListener("DOMContentLoaded", function() {
 
         startSlide(1500);
     }
+    const photoChange = () => {
+        const photoWrapper = document.getElementById("command");
+
+        photoWrapper.addEventListener("mouseover", (event) => {
+            let target = event.target;
+            if (target.matches("img.command__photo")) {
+                let dataImg = target.src;
+                target.src = target.dataset.img;
+                target.dataset.img = dataImg;
+            }
+        });
+        photoWrapper.addEventListener("mouseout", (event) => {
+            let target = event.target;
+            if (target.matches("img.command__photo")) {
+                let dataImg = target.src;
+                target.src = target.dataset.img;
+                target.dataset.img = dataImg;
+            }
+        });
+    }
+    const culc = () => {
+        const calcItems = document.querySelectorAll("input.calc-item");
+        calcItems.forEach((item) => {
+            item.addEventListener("input", () => {
+                this.value = this.value.replace(/\D/g, "");
+            })
+        });
+    }
     countTimer("30 April 2020 6:42:0");
     toggleMenu();
     togglePopup();
     tabs();
     slider();
+    photoChange();
+    culc();
 });
