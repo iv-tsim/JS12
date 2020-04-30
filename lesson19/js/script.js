@@ -56,8 +56,10 @@ window.addEventListener("DOMContentLoaded", function() {
         }
         popupBtn.forEach((item) => item.addEventListener("click", () => {
             popup.style.display = "block";
-            popupInterval = requestAnimationFrame(popupAnimation);
-            scaleValue = 0;
+            if (screen.width >= 768) {
+                popupInterval = requestAnimationFrame(popupAnimation);
+                scaleValue = 0;
+            }
         }))
         popupClose.addEventListener("click", () => popup.style.display = "none")
     }
