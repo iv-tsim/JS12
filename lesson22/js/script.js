@@ -213,7 +213,7 @@ window.addEventListener("DOMContentLoaded", function() {
         const calcItems = document.querySelectorAll("input.calc-item");
         calcItems.forEach((item) => {
             item.addEventListener("input", () => {
-                this.value = this.value.replace(/\D/g, "");
+                item.value = item.value.replace(/\D/g, "");
             })
         });
     }
