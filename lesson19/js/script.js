@@ -1,7 +1,7 @@
 window.addEventListener("DOMContentLoaded", function() {
     "use sctrict";
     
-    function countTimer(deadline) {
+    const countTimer = (deadline) => {
         const   timerHours = document.querySelector("#timer-hours"),
                 timerMinutes = document.querySelector("#timer-minutes"),
                 timerSeconds = document.querySelector("#timer-seconds");
@@ -31,5 +31,37 @@ window.addEventListener("DOMContentLoaded", function() {
         }
         updateClock();
     }
+    const toggleMenu = () => {
+        const   btnMenu = document.querySelector(".menu"),
+                menu = document.querySelector("menu"),
+                closeBtn = document.querySelector(".close-btn"),
+                menuItems = menu.querySelectorAll("ul>li"),
+                handlerMenu = () => menu.classList.toggle("active-menu");
+                
+        btnMenu.addEventListener("click", handlerMenu);
+        closeBtn.addEventListener("click", handlerMenu);
+        menuItems.forEach((item) => item.addEventListener("click", handlerMenu))
+    }
+    const togglePopup = () => {
+        const   popup = document.querySelector(".popup"),
+                popupBtn = document.querySelectorAll(".popup-btn"),
+                popupClose = document.querySelector(".popup-close"),
+                popupContent = document.querySelector(".popup-content");
+        let scaleValue = 0,
+            popupInterval;
+        const popupAnimation = () => {
+            popupInterval = requestAnimationFrame(popupAnimation);
+            (scaleValue <= 20) ? popupContent.style.transform = `scale(${scaleValue / 20})` : cancelAnimationFrame(popupInterval);
+            scaleValue++;
+        }
+        popupBtn.forEach((item) => item.addEventListener("click", () => {
+            popup.style.display = "block";
+            popupInterval = requestAnimationFrame(popupAnimation);
+            scaleValue = 0;
+        }))
+        popupClose.addEventListener("click", () => popup.style.display = "none")
+    }
     countTimer("30 April 2020 6:42:0");
+    toggleMenu();
+    togglePopup();
 });
