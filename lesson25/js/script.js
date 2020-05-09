@@ -1,6 +1,5 @@
 window.addEventListener("DOMContentLoaded", function() {
     "use sctrict";
-    
     const countTimer = (deadline) => {
         const   timerHours = document.querySelector("#timer-hours"),
                 timerMinutes = document.querySelector("#timer-minutes"),
@@ -254,11 +253,81 @@ window.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
-    countTimer("30 April 2020 6:42:0");
+    const sendForm = () => {
+        const   errorMessage = "Something went wrong...",
+                loadMessage = "Loading...",
+                successMessage = "Thank you! We'll get in touch with soon";
+        const   form = document.getElementById("form1"),
+                bottomForm = document.getElementById("form2"),
+                popupForm = document.getElementById("form3");
+        const inputs = document.querySelectorAll("input");
+        inputs.forEach((elem) => {
+            if (elem.getAttribute("name") === "user_phone") {
+                elem.addEventListener("input", () => {
+                    elem.value = elem.value.replace(/[^0-9+]/, '');
+                });
+            } else if (elem.getAttribute("placeholder") === "Ваше имя" || elem.getAttribute("placeholder") === "Ваше сообщение") {
+                elem.addEventListener("input", () => {
+                    elem.value = elem.value.replace(/[^а-яёА-ЯЁ ]/g, '');
+                });
+            }
+        })
+
+        const statusMessage = document.createElement("div");
+
+        const linkingSendingDataScript = (element, isPopupForm = false) => {
+            element.addEventListener("submit", (event) => {
+                const inputs = element.querySelectorAll("input");
+                event.preventDefault();
+                element.appendChild(statusMessage);
+                statusMessage.textContent = loadMessage;
+                if (isPopupForm) {
+                    statusMessage.style.cssText = "color: white";
+                }
+                const formData = new FormData(element);
+                let body = {};
+                formData.forEach((val, key) => {
+                    body[key] = val;
+                });
+                postData(body, inputs, () => {
+                    statusMessage.textContent = successMessage;
+                }, (error) => {
+                    statusMessage.textContent = errorMessage;
+                    console.error(error);
+                });
+            });
+        }
+        linkingSendingDataScript(form);
+        linkingSendingDataScript(bottomForm);
+        linkingSendingDataScript(popupForm, true);
+
+        const postData = (body, inputs, outputData, errorData) => {
+            const request = new XMLHttpRequest();
+            request.addEventListener("readystatechange", () => {
+                if (request.readyState !== 4) {
+                    return;
+                }
+                if (request.status === 200) {
+                    outputData();
+                } else {
+                    errorData(request.status);   
+                }
+                //(request.status === 200) ? outputData() : errorData(request.status);
+            });
+            request.open("POST", "./server.php");
+            request.setRequestHeader("Content-Type", "application/json");
+            request.send(JSON.stringify(body));
+            inputs.forEach((elem) => {
+                elem.value = "";
+            });
+        }
+    }
+    countTimer("11 May 2020 00:00:00");
     toggleMenu();
     togglePopup();
     tabs();
     slider();
     photoChange();
     culc(100);
+    sendForm();
 });
