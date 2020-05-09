@@ -289,36 +289,28 @@ window.addEventListener("DOMContentLoaded", function() {
                 formData.forEach((val, key) => {
                     body[key] = val;
                 });
-                postData(body, inputs, () => {
-                    statusMessage.textContent = successMessage;
-                }, (error) => {
-                    statusMessage.textContent = errorMessage;
-                    console.error(error);
-                });
+                postData(body, inputs)
+                    .then(() => statusMessage.textContent = successMessage)
+                    .catch(error => {statusMessage.textContent = errorMessage; console.error(error);})
+                    .finally(inputs.forEach(elem => elem.value = ""));
             });
         }
         linkingSendingDataScript(form);
         linkingSendingDataScript(bottomForm);
         linkingSendingDataScript(popupForm, true);
 
-        const postData = (body, inputs, outputData, errorData) => {
-            const request = new XMLHttpRequest();
-            request.addEventListener("readystatechange", () => {
-                if (request.readyState !== 4) {
-                    return;
-                }
-                if (request.status === 200) {
-                    outputData();
-                } else {
-                    errorData(request.status);   
-                }
-                //(request.status === 200) ? outputData() : errorData(request.status);
-            });
-            request.open("POST", "./server.php");
-            request.setRequestHeader("Content-Type", "application/json");
-            request.send(JSON.stringify(body));
-            inputs.forEach((elem) => {
-                elem.value = "";
+        const postData = (body, inputs) => {
+            return new Promise((resolve, reject) => {
+                const request = new XMLHttpRequest();
+                request.addEventListener("readystatechange", () => {
+                    if (request.readyState !== 4) {
+                        return;
+                    }
+                    (request.status === 200) ? resolve() : reject(request.status);
+                });
+                request.open("POST", "./server.php");
+                request.setRequestHeader("Content-Type", "application/json");
+                request.send(JSON.stringify(body));
             });
         }
     }
