@@ -37,13 +37,21 @@ window.addEventListener("DOMContentLoaded", function() {
                 
         menu.addEventListener("click", (event) => {
             let target = event.target;
-            console.log(target);
             if (target.classList.contains("close-btn") || target.closest("li")) {
                 handlerMenu();
             }
         });
         btnMenu.addEventListener("click", handlerMenu);
     }
+    document.body.addEventListener('click', event => {
+        event.preventDefault();
+        if (event.target.matches("menu li a")) {
+            document.querySelector(event.target.getAttribute('href')).scrollIntoView({block: "start", behavior: "smooth"});
+        }
+        if (event.target.parentNode.matches("main a")) {
+            document.querySelector(event.target.parentNode.getAttribute('href')).scrollIntoView({block: "start", behavior: "smooth"});
+        }
+    });
     const togglePopup = () => {
         const   popup = document.querySelector(".popup"),
                 popupBtn = document.querySelectorAll(".popup-btn"),
