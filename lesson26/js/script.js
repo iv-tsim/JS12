@@ -32,7 +32,6 @@ window.addEventListener("DOMContentLoaded", function() {
     }
     const toggleMenu = () => {
         const   menu = document.querySelector("menu"),
-                btnMenu = document.querySelector(".menu"),
                 handlerMenu = () => menu.classList.toggle("active-menu");
         document.addEventListener("click", (event) => {
             let target = event.target;
@@ -43,15 +42,20 @@ window.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
-    document.body.addEventListener('click', event => {
-        event.preventDefault();
-        if (event.target.matches("menu li a")) {
-            document.querySelector(event.target.getAttribute('href')).scrollIntoView({block: "start", behavior: "smooth"});
-        }
-        if (event.target.parentNode.matches("main a")) {
+    const menuLinks = () => {
+        const   menu = document.querySelector("menu"),
+                arrowDown = document.querySelector("main a");
+        menu.addEventListener('click', event => {
+            event.preventDefault();
+            if (event.target.matches("menu li a")) {
+                document.querySelector(event.target.getAttribute('href')).scrollIntoView({block: "start", behavior: "smooth"});
+            }
+        });
+        arrowDown.addEventListener("click", (event) => {
+            event.preventDefault();
             document.querySelector(event.target.parentNode.getAttribute('href')).scrollIntoView({block: "start", behavior: "smooth"});
-        }
-    });
+        })
+    }
     const togglePopup = () => {
         const   popup = document.querySelector(".popup"),
                 popupBtn = document.querySelectorAll(".popup-btn"),
@@ -344,4 +348,5 @@ window.addEventListener("DOMContentLoaded", function() {
     photoChange();
     culc(100);
     sendForm();
+    menuLinks();
 });
