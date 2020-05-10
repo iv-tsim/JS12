@@ -34,24 +34,16 @@ window.addEventListener("DOMContentLoaded", function() {
         const   menu = document.querySelector("menu"),
                 btnMenu = document.querySelector(".menu"),
                 handlerMenu = () => menu.classList.toggle("active-menu");
-        document.addEventListener("click", (event) => {
+                
+        menu.addEventListener("click", (event) => {
             let target = event.target;
-            if (target.parentNode.classList.contains("menu") || target.classList.contains("close-btn") || target.matches("a")) {
-                handlerMenu();
-            } else if (menu.classList.contains("active-menu")) {
+            console.log(target);
+            if (target.classList.contains("close-btn") || target.closest("li")) {
                 handlerMenu();
             }
         });
+        btnMenu.addEventListener("click", handlerMenu);
     }
-    document.body.addEventListener('click', event => {
-        event.preventDefault();
-        if (event.target.matches("menu li a")) {
-            document.querySelector(event.target.getAttribute('href')).scrollIntoView({block: "start", behavior: "smooth"});
-        }
-        if (event.target.parentNode.matches("main a")) {
-            document.querySelector(event.target.parentNode.getAttribute('href')).scrollIntoView({block: "start", behavior: "smooth"});
-        }
-    });
     const togglePopup = () => {
         const   popup = document.querySelector(".popup"),
                 popupBtn = document.querySelectorAll(".popup-btn"),
