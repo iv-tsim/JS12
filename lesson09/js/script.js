@@ -20,7 +20,8 @@ const   start = document.getElementById("start"),
         targetAmount = document.querySelector(".target-amount"),
         periodSelect = document.querySelector(".period-select"),
         periodAmount = document.querySelector(".period-amount"),
-        additionalExpensesValue = document.querySelector(".additional_expenses-value");
+        additionalExpensesValue = document.querySelector(".additional_expenses-value"),
+        inputs = document.querySelectorAll("input");
 let expensesItems = document.querySelectorAll(".expenses-items"),
     incomeItems = document.querySelectorAll(".income-items");   
 
@@ -65,7 +66,11 @@ const appData = {
         });
     },
     addExpensesBlock: function() {
-        let cloneExpensesItem = expensesItems[0].cloneNode(true);
+        let cloneExpensesItem = expensesItems[0].cloneNode(true),
+        cloneExpensesItemInput = cloneExpensesItem.querySelectorAll("input");
+        cloneExpensesItemInput.forEach((item) => {
+            item.value = "";
+        })
         expensesItems[0].parentNode.insertBefore(cloneExpensesItem, expensesAdd);
         expensesItems = document.querySelectorAll(".expenses-items");
         if(expensesItems.length === 3) {
@@ -80,7 +85,11 @@ const appData = {
         });
     },
     addIncomeBlock: function() {
-        let cloneIncomeItem = incomeItems[0].cloneNode(true);
+        let cloneIncomeItem = incomeItems[0].cloneNode(true),
+            cloneIncomeItemInput = cloneIncomeItem.querySelectorAll("input");
+        cloneIncomeItemInput.forEach((item) => {
+            item.value = "";
+        })
         incomeItems[0].parentNode.insertBefore(cloneIncomeItem, incomeAdd);
         incomeItems = document.querySelectorAll(".income-items");
         if(incomeItems.length === 3) {
@@ -166,3 +175,14 @@ money.addEventListener("input", function() {
         start.disabled = false;
     }
 });
+inputs.forEach((item) => {
+    if (item.getAttribute("placeholder") === "Наименование") {
+        item.addEventListener("input", () => {
+            item.value = item.value.replace(/[^а-яёА-ЯЁ ,.!?]/, '');
+        });
+    } else if (item.getAttribute("placeholder") === "Сумма") {
+        item.addEventListener("input", () => {
+            item.value = item.value.replace(/\D/, '');
+        });
+    }
+})
