@@ -234,19 +234,19 @@ window.addEventListener("DOMContentLoaded", function() {
                 calcCount = document.querySelector(".calc-count"),
                 totalValue = document.getElementById("total");
 
-        const runningNumbers = (num) => {
-            if (num === 0) {return;}
-            const   time = 1500,
-                    step = 10;
-            let n = 0;
-            const interval = setInterval(() => {
-                n += step;
-                if (n === num) {
-                    clearInterval(interval);
-                }
-                totalValue.textContent = n;
-            }, Math.round(time / (num / step)))
-        }
+        // const runningNumbers = (num) => {
+        //     if (num === 0) {return;}
+        //     const   time = 1500,
+        //             step = 10;
+        //     let n = 0;
+        //     const interval = setInterval(() => {
+        //         n += step;
+        //         if (n === num) {
+        //             clearInterval(interval);
+        //         }
+        //         totalValue.textContent = n;
+        //     }, Math.round(time / (num / step)))
+        // }
 
         const countSum = () => {
             let total = 0,
@@ -269,7 +269,8 @@ window.addEventListener("DOMContentLoaded", function() {
             if (typeValue && squareValue) {
                 total = price * typeValue * squareValue * countValue * dayValue;
             }
-            runningNumbers(Math.ceil(total));
+            totalValue.textContent = Math.ceil(total);
+            //runningNumbers(Math.ceil(total));
         }
 
         calcBlock.addEventListener("change", (event) => {
