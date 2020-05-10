@@ -290,7 +290,12 @@ window.addEventListener("DOMContentLoaded", function() {
                     body[key] = val;
                 });
                 postData(body, inputs)
-                    .then(() => statusMessage.textContent = successMessage)
+                    .then((response) => {
+                        if (response.status !== 200) {
+                            throw new Error("network status is not 200");
+                        }
+                        statusMessage.textContent = successMessage;
+                    })
                     .catch(error => {statusMessage.textContent = errorMessage; console.error(error);})
                     .finally(inputs.forEach(elem => elem.value = ""));
             });
@@ -299,22 +304,17 @@ window.addEventListener("DOMContentLoaded", function() {
         linkingSendingDataScript(bottomForm);
         linkingSendingDataScript(popupForm, true);
 
-        const postData = (body, inputs) => {
-            return new Promise((resolve, reject) => {
-                const request = new XMLHttpRequest();
-                request.addEventListener("readystatechange", () => {
-                    if (request.readyState !== 4) {
-                        return;
-                    }
-                    (request.status === 200) ? resolve() : reject(request.status);
-                });
-                request.open("POST", "./server.php");
-                request.setRequestHeader("Content-Type", "application/json");
-                request.send(JSON.stringify(body));
+        const postData = (body) => {
+            return fetch("./server.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(body)
             });
         }
     }
-    countTimer("11 May 2020 00:00:00");
+    countTimer("13 May 2020 00:00:00");
     toggleMenu();
     togglePopup();
     tabs();
