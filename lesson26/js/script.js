@@ -34,14 +34,14 @@ window.addEventListener("DOMContentLoaded", function() {
         const   menu = document.querySelector("menu"),
                 btnMenu = document.querySelector(".menu"),
                 handlerMenu = () => menu.classList.toggle("active-menu");
-                
-        menu.addEventListener("click", (event) => {
+        document.addEventListener("click", (event) => {
             let target = event.target;
-            if (target.classList.contains("close-btn") || target.closest("li")) {
+            if (target.parentNode.classList.contains("menu") || target.classList.contains("close-btn") || target.matches("a")) {
+                handlerMenu();
+            } else if (menu.classList.contains("active-menu")) {
                 handlerMenu();
             }
         });
-        btnMenu.addEventListener("click", handlerMenu);
     }
     document.body.addEventListener('click', event => {
         event.preventDefault();
