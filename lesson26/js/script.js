@@ -234,19 +234,23 @@ window.addEventListener("DOMContentLoaded", function() {
                 calcCount = document.querySelector(".calc-count"),
                 totalValue = document.getElementById("total");
 
-        // const runningNumbers = (num) => {
-        //     if (num === 0) {return;}
-        //     const   time = 1500,
-        //             step = 10;
-        //     let n = 0;
-        //     const interval = setInterval(() => {
-        //         n += step;
-        //         if (n === num) {
-        //             clearInterval(interval);
-        //         }
-        //         totalValue.textContent = n;
-        //     }, Math.round(time / (num / step)))
-        // }
+        let interval;
+        
+        const runningNumbers = (num) => {
+            if (num === 0) {return;}
+            const   time = 1500,
+                    step = 10;
+            let n = 0;
+            clearInterval(interval);
+            interval = setInterval(() => {
+                console.log(num);
+                n += step;
+                totalValue.textContent = n;
+                if (n >= num) {
+                    clearInterval(interval);
+                }
+            }, Math.round(time / (num / step)))
+        }
 
         const countSum = () => {
             let total = 0,
@@ -269,8 +273,7 @@ window.addEventListener("DOMContentLoaded", function() {
             if (typeValue && squareValue) {
                 total = price * typeValue * squareValue * countValue * dayValue;
             }
-            totalValue.textContent = Math.ceil(total);
-            //runningNumbers(Math.ceil(total));
+            runningNumbers(Math.ceil(total));
         }
 
         calcBlock.addEventListener("change", (event) => {
@@ -341,7 +344,7 @@ window.addEventListener("DOMContentLoaded", function() {
             });
         }
     }
-    countTimer("11 May 2020 00:00:00");
+    countTimer("13 May 2020 00:00:00");
     toggleMenu();
     togglePopup();
     tabs();
