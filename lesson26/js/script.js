@@ -43,18 +43,12 @@ window.addEventListener("DOMContentLoaded", function() {
         });
     }
     const menuLinks = () => {
-        const   menu = document.querySelector("menu"),
-                arrowDown = document.querySelector("main a");
-        menu.addEventListener('click', event => {
-            event.preventDefault();
-            if (event.target.matches("menu li a")) {
-                document.querySelector(event.target.getAttribute('href')).scrollIntoView({block: "start", behavior: "smooth"});
+        document.addEventListener('click', event => {
+            if (event.target.closest("a")) {
+                event.preventDefault();
+                document.querySelector(event.target.closest("a").getAttribute('href')).scrollIntoView({block: "start", behavior: "smooth"});
             }
         });
-        arrowDown.addEventListener("click", (event) => {
-            event.preventDefault();
-            document.querySelector(event.target.parentNode.getAttribute('href')).scrollIntoView({block: "start", behavior: "smooth"});
-        })
     }
     const togglePopup = () => {
         const   popup = document.querySelector(".popup"),
