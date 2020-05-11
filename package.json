@@ -1,0 +1,24 @@
+{
+  "name": "JS12",
+  "version": "1.0.0",
+  "description": "Курс от Академии верстки",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iv-tsim/JS12.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iv-tsim/JS12/issues"
+  },
+  "homepage": "https://github.com/iv-tsim/JS12#readme",
+  "devDependencies": {
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  }
+}
