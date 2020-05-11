@@ -37,16 +37,12 @@ window.addEventListener("DOMContentLoaded", function() {
             let target = event.target;
             if (target.parentNode.classList.contains("menu") || target.classList.contains("close-btn") || target.matches("a")) {
                 handlerMenu();
-            } else if (menu.classList.contains("active-menu")) {
+            } else if (target !== menu && menu.classList.contains("active-menu")) {
                 handlerMenu();
             }
-        });
-    }
-    const menuLinks = () => {
-        document.addEventListener('click', event => {
-            if (event.target.closest("a")) {
+            if (target.closest("a") && target.closest("a").getAttribute("href") !== "#close") {
                 event.preventDefault();
-                document.querySelector(event.target.closest("a").getAttribute('href')).scrollIntoView({block: "start", behavior: "smooth"});
+                document.querySelector(target.closest("a").getAttribute("href")).scrollIntoView({block: "start", behavior: "smooth"});
             }
         });
     }
@@ -346,5 +342,4 @@ window.addEventListener("DOMContentLoaded", function() {
     photoChange();
     culc(100);
     sendForm();
-    menuLinks();
 });
