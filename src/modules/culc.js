@@ -12,6 +12,24 @@ const culc = (price = 100) => {
             calcCount = document.querySelector(".calc-count"),
             totalValue = document.getElementById("total");
 
+    let interval;
+    
+    const runningNumbers = (num) => {
+        if (num === 0) {return;}
+        const   time = 1500,
+                step = 10;
+        let n = 0;
+        clearInterval(interval);
+        interval = setInterval(() => {
+            console.log(num);
+            n += step;
+            totalValue.textContent = n;
+            if (n >= num) {
+                clearInterval(interval);
+            }
+        }, Math.round(time / (num / step)))
+    }
+
     const countSum = () => {
         let total = 0,
             countValue = 1,
@@ -33,7 +51,7 @@ const culc = (price = 100) => {
         if (typeValue && squareValue) {
             total = price * typeValue * squareValue * countValue * dayValue;
         }
-        totalValue.textContent = Math.ceil(total);
+        runningNumbers(Math.ceil(total));
     }
 
     calcBlock.addEventListener("change", (event) => {
