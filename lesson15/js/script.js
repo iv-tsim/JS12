@@ -102,7 +102,11 @@ class AppData {
         });
     }
     addExpensesBlock() {
-        let cloneExpensesItem = expensesItems[0].cloneNode(true);
+        let cloneExpensesItem = expensesItems[0].cloneNode(true),
+        cloneExpensesItemInput = cloneExpensesItem.querySelectorAll("input");
+        cloneExpensesItemInput.forEach((item) => {
+            item.value = "";
+        })
         expensesItems[0].parentNode.insertBefore(cloneExpensesItem, expensesAdd);
         expensesItems = document.querySelectorAll(".expenses-items");
         if(expensesItems.length === 3) {
@@ -119,7 +123,11 @@ class AppData {
         });
     }
     addIncomeBlock() {
-        let cloneIncomeItem = incomeItems[0].cloneNode(true);
+        let cloneIncomeItem = incomeItems[0].cloneNode(true),
+        cloneIncomeItemInput = cloneIncomeItem.querySelectorAll("input");
+        cloneIncomeItemInput.forEach((item) => {
+            item.value = "";
+        })
         incomeItems[0].parentNode.insertBefore(cloneIncomeItem, incomeAdd);
         incomeItems = document.querySelectorAll(".income-items");
         if(incomeItems.length === 3) {
