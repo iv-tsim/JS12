@@ -150,23 +150,6 @@ class AppData {
         additionalIncomeItem.forEach(push);
         additionalExpensesItem.value.split(",").forEach(push);
     }
-    // getAddExpenses() {
-    //     let addExpenses = additionalExpensesItem.value.split(",");
-    //     addExpenses.forEach(item => {
-    //         item = item.trim();
-    //         if (item !== "") {
-    //             this.addExpenses.push(item);
-    //         }
-    //     });
-    // }
-    // getAddIncome() {
-    //     additionalIncomeItem.forEach(item => {
-    //         let itemValue = item.value.trim();
-    //         if (itemValue !== "") {
-    //             this.addIncome.push(itemValue);
-    //         }
-    //     });
-    // }
     getExpensesMonth() {
         for (let key in this.expenses) {
             this.expensesMonth += +this.expenses[key];
