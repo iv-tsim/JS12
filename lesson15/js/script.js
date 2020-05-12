@@ -246,6 +246,17 @@ class AppData {
                 start.disabled = false;
             }
         });
+        inputs.forEach((item) => {
+            if (item.getAttribute("placeholder") === "Наименование") {
+                item.addEventListener("input", () => {
+                    item.value = item.value.replace(/[^а-яёА-ЯЁ ,.!?]/, '');
+                });
+            } else if (item.getAttribute("placeholder") === "Сумма") {
+                item.addEventListener("input", () => {
+                    item.value = item.value.replace(/\D/, '');
+                });
+            }
+        })
     }
 }
 
