@@ -8,7 +8,7 @@ const toggleMenu = () => {
         } else if (target !== menu && menu.classList.contains("active-menu")) {
             handlerMenu();
         }
-        if (target.closest("a") && target.closest("a").getAttribute("href") !== "#close" && target.closest("a").getAttribute("href") !== "#" && target.closest("a").getAttribute("href") !== "") {
+        if (target.closest("a") && target.closest("a").getAttribute("href") !== "#close" && target.closest("a").getAttribute("href").length > 1) {
             event.preventDefault();
             document.querySelector(target.closest("a").getAttribute("href")).scrollIntoView({block: "start", behavior: "smooth"});
         }
